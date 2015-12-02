@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>CSCI 5448 &mdash; Fall 2015</title>
+
+		<meta name="description" content="Lecture 05 for Ken Anderson's Spring 2015 Seminar on Data Engineering">
+		<meta name="author" content="Ken Anderson">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h2>Django</h2>
+					<h4>CSCI 5448 &mdash; Fall 2015</h4>
+          <p>Kaiyue An & Tiantian Xie</p>
+				</section>
+
+<section>
+					<h2>Contents</h2>
+					<ul>
+						<li>Introduction</li>
+						<li>History</li>
+						<li>Installation</li>
+						<li>Models</li>
+						<li>Application</li>
+						<li>Admin</li>
+						<li>QuerySets</li>
+						<li>URLs</li>
+						<li>Views</li>
+						<li>Templates</li>
+						<li>References</li>
+
+				</section>
+
+				<section>
+					<h2>Introduction to web framework</h2>
+					<ul>
+					<li>A web application framework (WAF) is a software framework that is designed to support the development of dynamic websites, web applications, web services and web resources. </li>
+					<li>The framework aims to alleviate the overhead associated with common activities performed in web development.</li>
+				</ul>
+				</section>
+				<section>
+					<h2>Introduction to Django</h2>
+					<ul>
+					<li>Django is a free and open source web application framework written in Python.</p>
+					<li>It provides high-level abstractions of common Web development patterns, shortcuts for frequent programming tasks, and clear conventions for how to solve problems.</li>
+					</ul>
+
+				</section>
+
+				<section>
+					<h2>History</h2>
+					<ul>
+						<li>It was born in the fall of 2003.</li>
+						<li>It was created by a web development team in Lawrence, Kansas.</li>
+						<li>It was named Django in July 2005.</li>
+					</ul>
+				</section>
+
+
+
+				<section>
+					<h2>Python</h2>
+					<ul>
+						<li>Django is written in Python</li>
+						<li>We need Python to do anything in Django</li>
+						<li>Download:<em>https://www.python.org/downloads/</em></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Set up virtualenv</h2>
+					<ul>
+						<li>virtualenv is a tool to create isolated Python environments.</li>
+						<li>virtualenv creates a folder which contains all the necessary executables to use the packages that a Python project would need.</li>
+						<li>
+			<pre><code data-trim contenteditable>
+pip install virtualenv
+mkdir project_folder
+cd  project_folder
+virtualenv venv
+source venv/bin/activate
+deactivate
+			</code></pre>
+						</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Installation--Django</h2>
+					<ul>
+					<li>Install Django using pip.</li>
+					<li>In the console, run: pip install django==1.8.5</li>
+					<li>
+			<pre><code data-trim contenteditable>
+(venv) ~$ pip install django==1.8.5
+Downloading/unpacking django==1.8
+Installing collected packages: django
+Successfully installed django
+Cleaning up...
+			</code></pre>
+					</li>	
+					</ul>		
+				</section>
+
+				<section>
+					<h2>Create a Django Project</h2>
+					<ul>
+						<li>Run the following command:</li>
+						<pre><code>django-admin startproject mysite .</code></pre>
+						<li>Directory structure:</li>
+						<a href="images/structure.png"><img height="350" src="images/structure.png"></a>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Setup a database</h2>
+					<ul>
+					<li>mysite/settings.py</li>
+					<li>
+			<pre><code data-trim contenteditable>
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+			</code></pre>
+					</li>
+					</ul>			
+				</section>
+
+				<section>
+					<h2>Django model</h2>
+					<ul>
+					<li>A model in Django is a special kind of object - it is saved in the database.</li>
+				<li>You can think of a model in the database as a spreadsheet with columns (fields) and rows (data).</li>
+				</section>
+
+				<section>
+					<h2>Create application(1)</h2>
+					<ul>
+					<li>Run the following command:</li>
+						<pre><code>python manage.py startapp blog</code></pre>
+					<li>Directory structure:</li>
+						<a href="images/application.png"><img height="350" src="images/application.png"></a>	
+						</ul>	
+				</section>
+
+
+				<section>
+					<h2>Create application(2)</h2>
+					<ul>
+					<li>mysite/settings.py</li>
+					<li>
+			<pre><code data-trim contenteditable>
+INSTALLED_APPS = (
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'blog',
+)
+			</code></pre>
+					</li>	
+					</ul>		
+				</section>
+
+				<section>
+					<h2>Create Model(1)</h2>
+					<ul>
+					<li>Creating a blog post model</li>
+					<li>blog/models.py</li>
+					<li>
+			<pre><code data-trim contenteditable>
+from django.db import models
+from django.utils import timezone
+
+
+class Post(models.Model):
+    author = models.ForeignKey('auth.User')
+    title = models.CharField(max_length=200)
+    text = models.TextField()
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    published_date = models.DateTimeField(
+            blank=True, null=True)
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.title
+
+			</code></pre>
+					</li>	
+					</ul>		
+				</section>
+
+				<section>
+					<h2>Django Models(2)</h2>
+					<ul>
+						<li>class Post(models.Model): - this line defines our model (it is an object).</li>
+						<li>class is a special keyword that indicates that we are defining an object.</li>
+						<li>Post is the name of our model. Always start a class name with an uppercase letter.</li>
+						<li>models.Model means that the Post is a Django Model, so Django knows that it should be saved in the database.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Django Models(3)</h2>
+					<ul>
+						<li>models.CharField - this is how you define text with a limited number of characters.</li>
+						<li>models.TextField - this is for long text without a limit. </li>
+						<li>models.DateTimeField - this is a date and time.</li>
+						<li>models.ForeignKey - this is a link to another model.</li>
+
+		<li>Learn more about:<a href="https://docs.djangoproject.com/en/1.8/ref/models/fields/#field-types" rel="external">Model field</a></li>
+</ul>
+				</section>
+
+				<section>
+					<h2>Create tables for models in your database</h2>
+					<ul>
+					<li>Make Django know that we have some changes in our model.</li>
+						<li>
+			<pre><code data-trim contenteditable>
+python manage.py makemigrations blog
+			</code></pre>
+
+					</li>	
+					<li>Django prepared for us a migration file that we have to apply now to our database.</li>
+					<li>
+			<pre><code data-trim contenteditable>
+python manage.py migrate blog
+			</code></pre>
+					</li>	
+					</ul>
+				</section>
+
+				<section>
+					<h2>Django Admin(1)</h2>
+					<ul>
+					<li>To add, edit and delete posts we've just modeled, we will use Django admin.</li>
+					<li>blog/admin.py</li>
+					<li>
+			<pre><code data-trim contenteditable>
+from django.contrib import admin
+from .models import Post
+
+admin.site.register(Post)
+			</code></pre>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Django Admin(2)</h2>
+					<ul>
+					<li>Run the following command:
+					<pre><code data-trim contenteditable>
+					python manage.py runserver
+					</code></pre>
+					</li>
+					<li><a href="http://127.0.0.1:8000/admin/">Admin Page:</a> http://127.0.0.1:8000/admin/</li>
+					</ul>
+					<img src="http://tutorial.djangogirls.org/en/django_admin/images/login_page2.png" alt="Admin page" />
+				</section>
+
+				<section>
+					<h2>Django Admin(3)</h2>
+					<ul>
+					<li>Run the following command:
+					<pre><code data-trim contenteditable>
+					python manage.py createsuperuser
+					</code></pre>
+					</li>
+						<pre><code data-trim contenteditable>
+Username: admin
+Email address: admin@admin.com
+Password:
+Password (again):
+Superuser created successfully.</code></pre>
+
+<img src="http://tutorial.djangogirls.org/en/django_admin/images/django_admin3.png" alt="Login Admin Page" />
+					</ul>
+				</section>
+
+
+				<section>
+					<h2>Django QuerySets(1)</h2>
+					<ul>
+						<li>A QuerySet is a list of objects of a given Model. QuerySet allows to read the data from database, filter it and order it.</li>
+						<li>Open the local console and type this command:</li>
+						<pre><code>python manage.py shell</code></pre>
+						<li>The effect should be like this:</li>
+						<pre><code>(InteractiveConsole)
+>>></code></pre>
+					</ul>
+				</section>
+
+					<section>
+					<h2>Django QuerySets(2)</h2>
+					<ul>
+						<li>Display all of our posts:</li>
+						 <pre><code data-trim contenteditable>
+from blog.models import Post
+Post.objects.all()
+			</code></pre>
+						<li>Create a new post object in database:</li>
+						 <pre><code data-trim contenteditable>
+from django.contrib.auth.models import User
+Post.objects.create(author=me, title='Sample title', text='Test')
+Post.objects.all()
+			</code></pre>
+			<li>Filter objects:</li>
+						 <pre><code data-trim contenteditable>
+Post.objects.filter(author=me)
+Post.objects.filter(title__contains='title')
+			</code></pre>
+
+			<li>Ordering objects:</li>
+						 <pre><code data-trim contenteditable>
+Post.objects.order_by('created_date')
+Post.objects.order_by('-created_date')
+			</code></pre>
+
+					</ul>
+				</section>
+
+				<section>
+					<h2>Django urls(1)</h2>
+          <ul>
+            <li>The URL patterns take the path of a request and decide which views should handle the request.</li>
+            <li>Given a request, the URL patterns pass control to the views.</li>
+            <li>urls.py will define a variable called urlpatterns which is a list of calls to the url function.</li>
+            <li>How do URLs work in Django？</li>
+            <li>
+            <pre><code data-trim contenteditable>
+url(r'^admin/', include(admin.site.urls))
+			</code></pre>
+			</li>
+          </ul>
+				</section>
+
+				<section>
+					<h2>Django urls(2)</h2>
+          <ul>
+            <li>How Django matches URLs to views?
+            <ul>
+            	<li>regular expressions</li>
+            </ul>
+            </li>
+            <li>Here are a limited subset of the rules to regular expressions:
+            <ul>
+				<li>'^': for beginning of the text</li>
+				<li>'$': for end of text</li>
+				<li>'\d': for a digit</li>
+				<li>'+': to indicate that the previous item should be repeated at least once</li>
+				<li>'()': to capture part of the pattern</li>
+			</ul>
+			</li>
+			<li>URL function</li>
+			<li>URL pattern procedure</li>
+          </ul>
+				</section>
+
+				<section>
+					<h2>Django urls(3)</h2>
+					<ul>
+            <li>Lets create our first URL!</li>
+            <li>Open mysite/urls.py. Add a line like this:</li>
+            <li>
+            <pre><code data-trim contenteditable>
+url(r'', include('blog.urls')),
+			</code></pre>
+			<li>Django will now redirect everything that comes into 'http://127.0.0.1:8000/' to blog.urls.</li>
+			</li>
+			<li>Create blog/urls.py</li>
+          </ul>
+				</section>
+        
+
+				<section>
+					<h2>Django views</h2>
+        <ul>
+            <li>A view is a place where we put the "logic" of our application.</li>
+            <li>It will request information from the model you created before and pass it to a template.</li>
+            <li>blog/views.py</li>
+        </ul>
+        
+				</section>
+
+				<section>
+					<h2>Django templates(1)</h2>
+        <ul>
+            <li>A template is a file that we can re-use to present different information in a consistent format.</li>
+            <li>A Django template's format is described in a language called HTML.</li>
+            <li>blog/templates/blog: post_list.html</li>
+        </ul>
+				</section>
+
+				<section>
+					<h2>Django templates(2)</h2>
+        <ul>
+            <li>blog/views.py</li>
+            <li>
+            <pre><code data-trim contenteditable>
+from django.shortcuts import render
+from django.utils import timezone
+from .models import Post
+
+def post_list(request):
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    return render(request, 'blog/post_list.html', {'posts': posts})
+			</code></pre>
+			</li>
+        </ul>
+				</section>
+
+				<section>
+					<h2>Django templates(3)</h2>
+        <ul>
+            <li>Template tags: display dynamic data.</li>
+            <li>HTML: static</li>
+            <li>Python: dynamic</li>
+            </ul>
+            
+        </ul>
+				</section>
+
+				<section>
+					<h2>Django templates(4)</h2>
+        <ul>
+            <li>Template syntax:
+            <ul>
+            <li>{{ variable }}</li>
+            <li>{% tag %}</li>
+            <li>{{ variable|filter }}</li>
+            </ul>
+            </li>
+        </ul>
+				</section>
+
+				<section>
+					<h2>Django templates(5)</h2>
+        <ul>
+            <li>blog/templates/blog/post_list.html</li>
+            <li>
+            <pre><code data-trim contenteditable>
+<div>
+    <h1><a href="/">Django Girls Blog</a></h1>
+</div>
+
+{% for post in posts %}
+    <div>
+        <p>published: {{ post.published_date }}</p>
+        <h1><a href="">{{ post.title }}</a></h1>
+        <p>{{ post.text|linebreaks }}</p>
+    </div>
+{% endfor %}
+			</code></pre>
+			</li>
+        </ul>
+				</section>
+
+
+				<section>
+					<h2>References</h2>
+        <ul>
+            <li>https://www.youtube.com/watch?v=zTNA0MtZwso</li>
+            <li>https://www.youtube.com/watch?v=EcY1HBK9hf4</li>
+            <li>http://code.tutsplus.com/articles/python-from-scratch-create-a-dynamic-website--net-22787</li>
+            <li>https://www.djangoproject.com</li>
+            <li>https://en.wikipedia.org/wiki/Django_(web_framework)</li>
+            <li>http://tutorial.djangogirls.org/en/index.html</li>
+        </ul>
+				</section>
+
+				<section>
+					<h2>Thank you!</h2>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
