@@ -365,20 +365,28 @@ Post.objects.order_by('-created_date')
 				<section>
 					<h2>Django urls(1)</h2>
           <ul>
+          	<li>A URL is simply a web address. You can see a URL every time you visit a website.</li>
             <li>The URL patterns take the path of a request and decide which views should handle the request.</li>
             <li>Given a request, the URL patterns pass control to the views.</li>
-            <li>urls.py will define a variable called urlpatterns which is a list of calls to the url function.</li>
-            <li>How do URLs work in Django？</li>
-            <li>
-            <pre><code data-trim contenteditable>
-url(r'^admin/', include(admin.site.urls))
-			</code></pre>
-			</li>
           </ul>
 				</section>
 
 				<section>
 					<h2>Django urls(2)</h2>
+          <ul>
+            <li>How do URLs work in Django？</li>
+            <li>urls.py will define a variable called urlpatterns which is a list of calls to the url function.</li>
+            <li>
+            <pre><code data-trim contenteditable>
+url(r'^admin/', include(admin.site.urls))
+			</code></pre>
+			<li>It means that for every URL that starts with admin/ Django will find a corresponding view.</li>
+			</li>
+          </ul>
+				</section>
+
+				<section>
+					<h2>Django urls(3)</h2>
           <ul>
             <li>How Django matches URLs to views?
             <ul>
@@ -394,13 +402,32 @@ url(r'^admin/', include(admin.site.urls))
 				<li>'()': to capture part of the pattern</li>
 			</ul>
 			</li>
-			<li>URL function</li>
-			<li>URL pattern procedure</li>
           </ul>
 				</section>
 
 				<section>
-					<h2>Django urls(3)</h2>
+					<h2>Django urls(4)</h2>
+          <ul>
+			<li>URL function</li>
+			<ul>
+				<li>The url function has three parameters.</li>
+				<li>The first parameter is a regular expression.</li>
+				<li>This will be used to match against the request.</li>
+				<li>The second argument is the view to call if there's a match.</li>
+				<li>Lastly, the urlpatterns takes a name parameter at the end.</li>
+				<li>This will be used in templates and we'll look at this later.</li>
+			</ul>
+			<li>URL pattern procedure</li>
+			<ul>
+				<li>It begins at the top and determines if the first one matches.</li>
+				<li>If there's a match, it will call the associated view
+				<li>otherwise it will continue into the next pattern.</li>
+			</ul>
+          </ul>
+				</section>
+
+				<section>
+					<h2>Django urls(5)</h2>
 					<ul>
             <li>Lets create our first URL!</li>
             <li>Open mysite/urls.py. Add a line like this:</li>
@@ -413,7 +440,30 @@ url(r'', include('blog.urls')),
 			<li>Create blog/urls.py</li>
           </ul>
 				</section>
-        
+
+				<section>
+					<h2>Django urls(6)</h2>
+					<ul>
+        				<li>blog/urls.py</li>
+        				<pre><code data-trim contenteditable>
+from django.conf.urls import url
+from . import views
+urlpatterns = [
+    url(r'^$', views.post_list, name='post_list'),
+]
+						</code></pre>
+						<li>we're now assigning a view called post_list to an regular expression</li>
+						<li>This regular expression will only match an empty string.</li>
+          			</ul>
+				</section>
+
+        		<section>
+					<h2>Django urls(7)</h2>
+					<ul>
+        				<li>blog/urls.py</li>
+						<p>The last part name='post_list' is the name of the URL that will be used to identify the view. This can be the same as the name of the view but it can also be something completely different. We will be using the named URLs later in the project so it is important to name each URL in the app. We should also try to keep the names of URLs unique and easy to remember.</p>
+          			</ul>
+				</section>
 
 				<section>
 					<h2>Django views</h2>
