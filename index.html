@@ -172,6 +172,25 @@ DATABASES = {
 				</section>
 
 				<section>
+					<h2>Django model- a example</h2>
+					<li>This example model defines a Person which has a first_name and last_name:</li>
+					<pre><code data-trim contenteditable>
+					from django.db import models
+class Person(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+					</code></pre>
+					<li>The model Person create a database like this:</li>
+					<pre><code data-trim contenteditable>
+					CREATE TABLE myapp_person (
+    "id" serial NOT NULL PRIMARY KEY,
+    "first_name" varchar(30) NOT NULL,
+    "last_name" varchar(30) NOT NULL
+);
+</code></pre>
+				</section>
+
+				<section>
 					<h2>Create application(1)</h2>
 					<ul>
 					<li>Run the following command:</li>
