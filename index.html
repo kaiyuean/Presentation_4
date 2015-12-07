@@ -462,22 +462,7 @@ url(r'', include('blog.urls')),
           </ul>
 				</section>
 
-				<section>
-					<h2>Django urls(6)</h2>
-					<ul>
-        				<li>blog/urls.py</li>
-        				<pre><code data-trim contenteditable>
-from django.conf.urls import url
-from . import views
-urlpatterns = [
-    url(r'^$', views.post_list, name='post_list'),
-]
-						</code></pre>
-						<li>we're now assigning a view called post_list to an regular expression</li>
-						<li>This regular expression will only match an empty string.</li>
-          			</ul>
-				</section>
-
+				
         		<section>
 					<h2>Django urls(7)</h2>
 					<ul>
