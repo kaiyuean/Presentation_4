@@ -571,7 +571,27 @@ def post_list(request):
         </ul>
 				</section>
 
-				
+				<section>
+					<h2>Django templates(5)</h2>
+        <ul>
+            <li>blog/templates/blog/post_list.html</li>
+            <li>
+            <pre><code data-trim contenteditable>
+<div>
+    <h1><a href="/">Django Girls Blog</a></h1>
+</div>
+
+{% for post in posts %}
+    <div>
+        <p>published: {{ post.published_date }}</p>
+        <h1><a href="">{{ post.title }}</a></h1>
+        <p>{{ post.text|linebreaks }}</p>
+    </div>
+{% endfor %}
+			</code></pre>
+			</li>
+        </ul>
+				</section>
 
 				<section>
 					<h2>Website</h2>
