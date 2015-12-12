@@ -134,8 +134,8 @@ Installing collected packages: django
 Successfully installed django
 Cleaning up...
 			</code></pre>
-					</li>	
-					</ul>		
+					</li>
+					</ul>
 				</section>
 
 				<section>
@@ -162,7 +162,7 @@ DATABASES = {
 }
 			</code></pre>
 					</li>
-					</ul>			
+					</ul>
 				</section>
 
 				<section>
@@ -197,8 +197,8 @@ class Person(models.Model):
 					<li>Run the following command:</li>
 						<pre><code>python manage.py startapp blog</code></pre>
 					<li>Directory structure:</li>
-						<a href="images/application.png"><img height="350" src="images/application.png"></a>	
-						</ul>	
+						<a href="images/application.png"><img height="350" src="images/application.png"></a>
+						</ul>
 				</section>
 
 
@@ -218,8 +218,8 @@ INSTALLED_APPS = (
     'blog',
 )
 			</code></pre>
-					</li>	
-					</ul>		
+					</li>
+					</ul>
 				</section>
 
 				<section>
@@ -250,8 +250,8 @@ class Post(models.Model):
         return self.title
 
 			</code></pre>
-					</li>	
-					</ul>		
+					</li>
+					</ul>
 				</section>
 
 				<section>
@@ -285,13 +285,13 @@ class Post(models.Model):
 python manage.py makemigrations blog
 			</code></pre>
 
-					</li>	
+					</li>
 					<li>Django prepared for us a migration file that we have to apply now to our database.</li>
 					<li>
 			<pre><code data-trim contenteditable>
 python manage.py migrate blog
 			</code></pre>
-					</li>	
+					</li>
 					</ul>
 				</section>
 
@@ -538,7 +538,7 @@ def post_list(request):
             <li>HTML: static</li>
             <li>Python: dynamic</li>
             </ul>
-            
+
         </ul>
 				</section>
 
